@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đăng nhập - the Viet Fresh</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#064e3b", // Deep forest green from the logo
+                        "background-light": "#fdfcf8", // Warm off-white
+                        "background-dark": "#0a0a0a", // Deep dark
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        display: ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>.wood-texture-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDgSIBhTbW6mMeAXWDc783T26M1Txs9AW9WO6PSl_Hibi0tmbuxuhH8brl6-6Odnjvk9-iLcg_QvUuhPWv51P74apLeHg1D6Z0e6QE9VEKdMNRkAesDEQU5Jc7_kxyN1BYaAqSw1yHCJNQHs3Mp3ShEEFT9RhJT3YMirFoBe3aGXLfHNj0nTHN_Hp6RrfNWl2spgKp1ciBvVGh5rMz-kUI6bflp4RTpXWjHa8TKCkwCWfQSdjcPK4VHIDr8u30LKJv52docuN5JqNjP);
+    opacity: 0.05
+    }
+.dark .wood-texture-overlay {
+    opacity: 0.02
+    }</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans transition-colors duration-300 min-h-screen flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 wood-texture-overlay pointer-events-none"></div>
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl"></div>
+<button class="absolute top-6 right-6 p-2 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-md shadow-sm border border-black/5 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:scale-110 transition-transform" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined block dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined hidden dark:block">light_mode</span>
+</button>
+<main class="w-full max-w-[450px] p-6 relative z-10">
+<div class="bg-white/70 dark:bg-zinc-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-white/5 overflow-hidden">
+<div class="p-8 sm:p-12">
+<div class="flex flex-col items-center mb-10">
+<img alt="the Viet Fresh Logo" class="w-64 h-auto drop-shadow-sm dark:brightness-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJaqQWJb2O0koaSUhwKjCYfkGfpKcRXv7XEO969FWZM7RhLtWhd62oq_wLx6A6brHKvwsXwxv5Gq9sGOnzsRUG99qTcmS1r1pAfqwNhI-UJoW_j0I-xeE7ou50h2s-nzSfyLomybIPCq9MRCbW7iRQIbsNuBg8El-qGWOCThG0pcV2J4bS_wx_cYAD89ONiglyH8FcxK3WZrUvQMPrg--ZQ3EJG2hI764DQ223AbXBn2CcHCXkGn6PfD-mAbaVdb-3qlWEtMz4ovTR"/>
+<p class="mt-4 text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide uppercase">Chào mừng bạn quay trở lại</p>
+</div>
+<form action="#" class="space-y-6" method="POST">
+<div>
+<label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="username">
+                            Tên đăng nhập
+                        </label>
+<div class="relative group">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</span>
+<input class="block w-full pl-10 pr-4 py-3 bg-white/50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-primary text-gray-900 dark:text-white transition-all outline-none" id="username" name="username" placeholder="Nhập tên người dùng" required="" type="text"/>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="block text-sm font-semibold text-gray-700 dark:text-gray-300" for="password">
+                                Mật khẩu
+                            </label>
+<a class="text-xs font-medium text-primary hover:underline transition-all" href="#">Quên mật khẩu?</a>
+</div>
+<div class="relative group">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</span>
+<input class="block w-full pl-10 pr-4 py-3 bg-white/50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-primary text-gray-900 dark:text-white transition-all outline-none" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<div class="flex items-center">
+<input class="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary dark:focus:ring-offset-zinc-900" id="remember" type="checkbox"/>
+<label class="ml-2 text-sm text-gray-600 dark:text-gray-400" for="remember">Ghi nhớ đăng nhập</label>
+</div>
+<button class="w-full bg-primary hover:bg-emerald-950 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-[0.98] transition-all flex items-center justify-center space-x-2" type="submit">
+<span>Đăng nhập</span>
+<span class="material-symbols-outlined">login</span>
+</button>
+</form>
+<div class="mt-10 text-center">
+<p class="text-gray-600 dark:text-gray-400 text-sm">
+                        Chưa có tài khoản? 
+                        <a class="text-primary font-bold hover:underline ml-1" href="#">Đăng ký ngay</a>
+</p>
+</div>
+</div>
+<div class="h-1.5 w-full bg-gradient-to-r from-emerald-800 via-primary to-emerald-900"></div>
+</div>
+<div class="mt-8 flex items-center justify-center space-x-4 opacity-50 hover:opacity-100 transition-opacity">
+<span class="h-px w-12 bg-gray-300 dark:bg-zinc-700"></span>
+<span class="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-widest font-medium">Hoặc</span>
+<span class="h-px w-12 bg-gray-300 dark:bg-zinc-700"></span>
+</div>
+<div class="mt-6 flex justify-center space-x-4">
+<button class="p-2.5 rounded-full bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 shadow-sm hover:shadow-md transition-shadow">
+<svg class="w-5 h-5" viewBox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+</button>
+<button class="p-2.5 rounded-full bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 shadow-sm hover:shadow-md transition-shadow">
+<svg class="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
+<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+</svg>
+</button>
+</div>
+<div class="mt-12 flex justify-center space-x-6 text-xs text-gray-400 dark:text-zinc-600 font-medium">
+<a class="hover:text-primary transition-colors" href="#">Tiếng Việt</a>
+<span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-zinc-800 self-center"></span>
+<a class="hover:text-primary transition-colors" href="#">English</a>
+<span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-zinc-800 self-center"></span>
+<a class="hover:text-primary transition-colors" href="#">Trợ giúp</a>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 w-32 h-32 opacity-20 pointer-events-none transform -rotate-45 translate-x-[-20%] translate-y-[20%]">
+<svg class="text-primary" fill="currentColor" viewBox="0 0 200 200">
+<path d="M40,160 Q80,100 160,160 T40,160"></path>
+</svg>
+</div>
+
+</body></html>

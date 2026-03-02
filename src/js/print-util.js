@@ -1,0 +1,209 @@
+const path = require('node:path');
+const fs = require('node:fs/promises');
+const { execFile } = require('node:child_process');
+const { promisify } = require('node:util');
+
+const execFileAsync = promisify(execFile);
+
+const normalizePrinterList = (printerData) => {
+  if (!printerData) {
+    return [];
+  }
+
+  const printers = Array.isArray(printerData) ? printerData : [printerData];
+  return printers
+    .map((printer) => {
+      const type = printer?.Type ?? '';
+      const portName = printer?.PortName ?? '';
+      const computerName = printer?.ComputerName ?? '';
+
+      const isNetwork =
+        type === 'Connection' ||
+        (typeof portName === 'string' && portName.startsWith('\\')) ||
+        (typeof computerName === 'string' && computerName.trim().length > 0);
+
+      const name = printer?.Name ?? '';
+
+      const isAvailable =
+        typeof name === 'string' &&
+        name.trim().length > 0 &&
+        name.toLowerCase() !== 'microsoft xps document writer';
+
+      return {
+        name,
+        computerName,
+        type,
+        portName,
+        driverName: printer?.DriverName ?? '',
+        status: printer?.PrinterStatus ?? null,
+        isNetwork,
+        isAvailable,
+      };
+    })
+    .filter((printer) => printer.isAvailable)
+    .sort((left, right) => left.name.localeCompare(right.name, undefined, { sensitivity: 'base' }));
+};
+
+const listAvailableNetworkPrinters = async () => {
+  if (process.platform !== 'win32') {
+    return [];
+  }
+
+  const psScript = [
+    'Get-Printer',
+    '| Select-Object Name,ComputerName,Type,Shared,PortName,DriverName,PrinterStatus',
+    '| ConvertTo-Json -Depth 3',
+  ].join(' ');
+
+  const { stdout } = await execFileAsync('powershell.exe', [
+    '-NoProfile',
+    '-Command',
+    psScript,
+  ]);
+
+  if (!stdout || stdout.trim().length === 0) {
+    return [];
+  }
+
+  const parsed = JSON.parse(stdout);
+  return normalizePrinterList(parsed);
+};
+
+const listFilesInDirectory = async (directoryPath) => {
+  if (!directoryPath) {
+    throw new Error('directoryPath is required.');
+  }
+
+  await fs.mkdir(directoryPath, { recursive: true });
+
+  const entries = await fs.readdir(directoryPath, { withFileTypes: true });
+
+  return entries
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name)
+    .sort((left, right) => left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' }));
+};
+
+const escapePowerShellSingleQuoted = (value) => value.replace(/'/g, "''");
+
+const printFile = async (filePath, printerName) => {
+  if (process.platform !== 'win32') {
+    throw new Error('Printing local files is only supported on Windows.');
+  }
+
+  const escapedFilePath = escapePowerShellSingleQuoted(filePath);
+  const hasPrinterName = typeof printerName === 'string' && printerName.trim().length > 0;
+
+  const command = hasPrinterName
+    ? `Start-Process -FilePath '${escapedFilePath}' -Verb PrintTo -ArgumentList '\"${escapePowerShellSingleQuoted(printerName.trim())}\"' -WindowStyle Hidden -Wait`
+    : `Start-Process -FilePath '${escapedFilePath}' -Verb Print -WindowStyle Hidden -Wait`;
+
+  await execFileAsync('powershell.exe', ['-NoProfile', '-Command', command]);
+};
+
+const getUniqueDestinationPath = async (targetDirectory, fileName) => {
+  const parsedName = path.parse(fileName);
+  let attempt = 0;
+
+  while (true) {
+    const suffix = attempt === 0 ? '' : `_${attempt}`;
+    const candidateName = `${parsedName.name}${suffix}${parsedName.ext}`;
+    const candidatePath = path.join(targetDirectory, candidateName);
+
+    try {
+      await fs.access(candidatePath);
+      attempt += 1;
+    } catch {
+      return candidatePath;
+    }
+  }
+};
+
+const moveFileToDirectory = async (sourcePath, targetDirectory, fileName) => {
+  const destinationPath = await getUniqueDestinationPath(targetDirectory, fileName);
+
+  try {
+    await fs.rename(sourcePath, destinationPath);
+  } catch (error) {
+    if (error?.code !== 'EXDEV') {
+      throw error;
+    }
+
+    await fs.copyFile(sourcePath, destinationPath);
+    await fs.unlink(sourcePath);
+  }
+
+  return destinationPath;
+};
+
+const printFilesFromDirectory = async ({
+  sourceDirectory,
+  processedDirectory,
+  printerName,
+}) => {
+  if (!sourceDirectory || !processedDirectory) {
+    throw new Error('sourceDirectory and processedDirectory are required.');
+  }
+
+  await fs.mkdir(processedDirectory, { recursive: true });
+
+  const printedFiles = [];
+  const failedFiles = [];
+
+  while (true) {
+    const entries = await fs.readdir(sourceDirectory, { withFileTypes: true });
+    const files = entries.filter((entry) => entry.isFile()).map((entry) => entry.name);
+
+    if (files.length === 0) {
+      break;
+    }
+
+    let movedThisPass = 0;
+
+    for (const fileName of files) {
+      const sourcePath = path.join(sourceDirectory, fileName);
+
+      try {
+        await printFile(sourcePath, printerName);
+        const movedPath = await moveFileToDirectory(sourcePath, processedDirectory, fileName);
+        printedFiles.push(movedPath);
+        movedThisPass += 1;
+      } catch (error) {
+        failedFiles.push({
+          file: sourcePath,
+          error: error instanceof Error ? error.message : String(error),
+        });
+      }
+    }
+
+    if (movedThisPass === 0) {
+      break;
+    }
+  }
+
+  const remainingEntries = await fs.readdir(sourceDirectory, { withFileTypes: true });
+  const remainingFiles = remainingEntries
+    .filter((entry) => entry.isFile())
+    .map((entry) => path.join(sourceDirectory, entry.name));
+
+  return {
+    success: remainingFiles.length === 0,
+    message:
+      remainingFiles.length === 0
+        ? 'All files were printed and moved.'
+        : 'Stopped with unprocessed files remaining in source directory.',
+    printedCount: printedFiles.length,
+    failedCount: failedFiles.length,
+    printedFiles,
+    failedFiles,
+    remainingFiles,
+    sourceDirectory,
+    processedDirectory,
+  };
+};
+
+module.exports = {
+  listAvailableNetworkPrinters,
+  listFilesInDirectory,
+  printFilesFromDirectory,
+};

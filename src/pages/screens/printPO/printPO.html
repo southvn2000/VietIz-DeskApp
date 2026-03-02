@@ -1,0 +1,127 @@
+<section class="inpo-page" aria-label="Màn hình In PO chi tiết">
+  <header class="inpo-page__header">
+    <div>
+      <h1 class="inpo-page__title">In PO</h1>
+      <p class="inpo-page__subtitle">Quản lý và in ấn các đơn hàng thu mua của hệ thống</p>
+    </div>
+    <div class="inpo-page__actions">
+      <button class="inpo-btn inpo-btn--secondary" type="button">
+        <span class="material-symbols-outlined">file_download</span>
+        <span>Xuất Excel</span>
+      </button>
+      <button class="inpo-btn inpo-btn--primary" type="button">
+        <span class="material-symbols-outlined">print</span>
+        <span>In hàng loạt</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="inpo-filter" aria-label="Bộ lọc In PO">
+    <div class="inpo-field inpo-field--printer">
+      <label class="inpo-label" for="inpo-printer-select">Cấu hình máy in</label>
+      <div class="inpo-input-wrap">
+        <select id="inpo-printer-select" class="inpo-select">
+          <option>-- Chọn máy in khả dụng --</option>
+        </select>
+        <button id="inpo-refresh-printers" class="inpo-icon-btn" type="button" aria-label="Làm mới danh sách máy in">
+          <span class="material-symbols-outlined">refresh</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="inpo-field inpo-field--date">
+      <label class="inpo-label" for="inpo-order-date">Ngày đặt hàng</label>
+      <input id="inpo-order-date" class="inpo-input" type="date" />
+    </div>
+  </section>
+
+  <section class="inpo-table-card" aria-label="Danh sách đơn hàng PO">
+    <div class="inpo-table-scroll">
+      <table class="inpo-table">
+        <thead>
+          <tr>
+            <th class="inpo-table__checkbox-col"><input id="inpo-select-all" type="checkbox" aria-label="Chọn tất cả" /></th>
+            <th>STT</th>
+            <th>Tên File (PO)</th>
+            <th class="inpo-table__center">In 2 mặt</th>
+            <th class="inpo-table__center">Số bản</th>
+            <th class="inpo-table__center">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="inpo-po-tbody">
+          <tr>
+            <td class="inpo-table__checkbox-col"><input data-po-select type="checkbox" /></td>
+            <td>01</td>
+            <td>
+              <div class="inpo-po-name">PO-20231024-001</div>
+              <div class="inpo-po-meta">NCC Rau Củ Quả Đà Lạt - 24/10/2023</div>
+            </td>
+            <td class="inpo-table__center"><input type="checkbox" checked /></td>
+            <td class="inpo-table__center"><input class="inpo-copy-input" type="number" value="1" min="1" /></td>
+            <td class="inpo-table__center">
+              <button class="inpo-row-action" type="button" aria-label="In PO-20231024-001">
+                <span class="material-symbols-outlined">print</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="inpo-table__checkbox-col"><input data-po-select type="checkbox" /></td>
+            <td>02</td>
+            <td>
+              <div class="inpo-po-name">PO-20231024-042</div>
+              <div class="inpo-po-meta">Thực Phẩm Tươi Sống Miền Tây - 24/10/2023</div>
+            </td>
+            <td class="inpo-table__center"><input type="checkbox" /></td>
+            <td class="inpo-table__center"><input class="inpo-copy-input" type="number" value="2" min="1" /></td>
+            <td class="inpo-table__center">
+              <button class="inpo-row-action" type="button" aria-label="In PO-20231024-042">
+                <span class="material-symbols-outlined">print</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="inpo-table__checkbox-col"><input data-po-select type="checkbox" /></td>
+            <td>03</td>
+            <td>
+              <div class="inpo-po-name">PO-20231024-118</div>
+              <div class="inpo-po-meta">Trái Cây Nhập Khẩu Vina - 24/10/2023</div>
+            </td>
+            <td class="inpo-table__center"><input type="checkbox" checked /></td>
+            <td class="inpo-table__center"><input class="inpo-copy-input" type="number" value="1" min="1" /></td>
+            <td class="inpo-table__center">
+              <button class="inpo-row-action" type="button" aria-label="In PO-20231024-118">
+                <span class="material-symbols-outlined">print</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="inpo-notes" aria-label="Ghi chú In PO">
+    <article class="inpo-note-card">
+      <span class="material-symbols-outlined">info</span>
+      <div>
+        <h3>Hướng dẫn in</h3>
+        <p>Kiểm tra kết nối máy in trước khi thực hiện in hàng loạt.</p>
+      </div>
+    </article>
+
+    <article class="inpo-note-card">
+      <span class="material-symbols-outlined">settings</span>
+      <div>
+        <h3>Định dạng in</h3>
+        <p>Khổ giấy mặc định là A4, hướng dọc cho tất cả đơn hàng.</p>
+      </div>
+    </article>
+
+    <article class="inpo-note-card">
+      <span class="material-symbols-outlined">history</span>
+      <div>
+        <h3>Lịch sử in</h3>
+        <p>Xem lại các tác vụ in ấn gần đây nhất của hệ thống.</p>
+      </div>
+    </article>
+  </section>
+</section>

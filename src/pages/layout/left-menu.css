@@ -1,0 +1,38 @@
+.layout-sidebar {
+  width: 16rem;
+  flex-shrink: 0;
+}
+
+.layout-sidebar a {
+  text-decoration: none;
+}
+
+.layout-sidebar .logo-text {
+  color: #047857;
+}
+
+.layout-sidebar .menu-logo-text {
+  color: #16a34a;
+}
+
+.menu-item {
+  color: #4b5563;
+}
+
+.menu-item:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.menu-item-active {
+  background: #dcfce7;
+  color: #047857;
+}
+
+.menu-logout {
+  color: #dc2626;
+}
+
+.menu-logout:hover {
+  background: #fee2e2;
+}

@@ -1,0 +1,43 @@
+<aside class="sidebar-transition w-64 bg-gray-100 text-gray-800 flex flex-col relative z-20 shadow-xl" id="sidebar">
+  <div class="h-20 flex items-center px-6 justify-between border-b border-gray-200">
+    <div class="logo-full">
+      <div class="logo-text menu-logo-text">Vietfresh</div>
+    </div>
+    <div class="logo-icon hidden">
+      <span class="material-symbols-outlined text-3xl">restaurant</span>
+    </div>
+    <button class="p-1 hover:bg-gray-200 rounded-lg transition-colors" onclick="document.getElementById('sidebar').classList.toggle('collapsed')" type="button">
+      <span class="material-symbols-outlined">menu_open</span>
+    </button>
+  </div>
+
+  <nav class="flex-1 py-6 px-4 space-y-2 overflow-y-auto">
+    <a class="menu-item menu-item-active flex items-center space-x-3 px-4 py-3 rounded-xl transition-all" data-nav-item data-screen="dashboard" href="#">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class="nav-text font-medium">Tổng quan</span>
+    </a>
+    <a class="menu-item flex items-center space-x-3 px-4 py-3 rounded-xl transition-all" data-nav-item data-screen="orders" href="#">
+      <span class="material-symbols-outlined">receipt_long</span>
+      <span class="nav-text font-medium">Đơn hàng</span>
+    </a>    
+    <a class="menu-item flex items-center space-x-3 px-4 py-3 rounded-xl transition-all" data-nav-item data-screen="inpo" href="#">
+      <span class="material-symbols-outlined">print</span>
+      <span class="nav-text font-medium">In PO</span>
+    </a>
+    <a class="menu-item flex items-center space-x-3 px-4 py-3 rounded-xl transition-all" data-nav-item data-screen="reports" href="#">
+      <span class="material-symbols-outlined">bar_chart</span>
+      <span class="nav-text font-medium">Báo cáo</span>
+    </a>
+  </nav>
+
+  <div class="p-4 border-t border-gray-200">
+    <a class="menu-item flex items-center space-x-3 px-4 py-3 rounded-xl transition-all" data-nav-item data-screen="settings" href="#">
+      <span class="material-symbols-outlined">settings</span>
+      <span class="nav-text font-medium">Cài đặt</span>
+    </a>
+    <button class="menu-logout w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all mt-2" id="main-logout-button" type="button">
+      <span class="material-symbols-outlined">logout</span>
+      <span class="nav-text font-medium">Đăng xuất</span>
+    </button>
+  </div>
+</aside>

@@ -1,0 +1,136 @@
+<div class="flex-1 overflow-y-auto p-8 relative z-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-2 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg text-emerald-600">
+          <span class="material-symbols-outlined">payments</span>
+        </div>
+        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">+12.5%</span>
+      </div>
+      <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Tổng doanh thu</h3>
+      <p class="text-2xl font-bold text-gray-800 dark:text-white mt-1">45.280.000đ</p>
+    </div>
+
+    <div class="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-2 bg-blue-50 dark:bg-blue-950/30 rounded-lg text-blue-600">
+          <span class="material-symbols-outlined">receipt_long</span>
+        </div>
+        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">+8.2%</span>
+      </div>
+      <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Đơn hàng mới</h3>
+      <p class="text-2xl font-bold text-gray-800 dark:text-white mt-1">128</p>
+    </div>
+
+    <div class="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-2 bg-orange-50 dark:bg-orange-950/30 rounded-lg text-orange-600">
+          <span class="material-symbols-outlined">person_add</span>
+        </div>
+        <span class="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded">+5.4%</span>
+      </div>
+      <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">In PO mới</h3>
+      <p class="text-2xl font-bold text-gray-800 dark:text-white mt-1">24</p>
+    </div>
+
+    <div class="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-2 bg-purple-50 dark:bg-purple-950/30 rounded-lg text-purple-600">
+          <span class="material-symbols-outlined">star</span>
+        </div>
+        <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded">4.9/5</span>
+      </div>
+      <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Đánh giá TB</h3>
+      <p class="text-2xl font-bold text-gray-800 dark:text-white mt-1">45 Đánh giá</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="lg:col-span-2 bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-gray-100 dark:border-zinc-800 flex justify-between items-center">
+        <h2 class="font-bold text-gray-800 dark:text-white">Đơn hàng gần đây</h2>
+        <button class="text-primary text-sm font-bold hover:underline" type="button">Xem tất cả</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="bg-gray-50 dark:bg-zinc-800/50 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <th class="px-6 py-4 font-semibold">Mã đơn</th>
+              <th class="px-6 py-4 font-semibold">In PO</th>
+              <th class="px-6 py-4 font-semibold">Trạng thái</th>
+              <th class="px-6 py-4 font-semibold text-right">Tổng tiền</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-zinc-800">
+            <tr class="hover:bg-gray-50 dark:hover:bg-zinc-800/30 transition-colors">
+              <td class="px-6 py-4 font-medium text-gray-800 dark:text-zinc-200">#ORD-9021</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-zinc-400">Nguyễn Văn A</td>
+              <td class="px-6 py-4"><span class="px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">Hoàn tất</span></td>
+              <td class="px-6 py-4 text-right font-bold text-gray-800 dark:text-zinc-200">450.000đ</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-zinc-800/30 transition-colors">
+              <td class="px-6 py-4 font-medium text-gray-800 dark:text-zinc-200">#ORD-9022</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-zinc-400">Trần Thị B</td>
+              <td class="px-6 py-4"><span class="px-2.5 py-1 text-xs font-bold rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400">Đang giao</span></td>
+              <td class="px-6 py-4 text-right font-bold text-gray-800 dark:text-zinc-200">285.000đ</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-zinc-800/30 transition-colors">
+              <td class="px-6 py-4 font-medium text-gray-800 dark:text-zinc-200">#ORD-9023</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-zinc-400">Lê Văn C</td>
+              <td class="px-6 py-4"><span class="px-2.5 py-1 text-xs font-bold rounded-full bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400">Chờ xử lý</span></td>
+              <td class="px-6 py-4 text-right font-bold text-gray-800 dark:text-zinc-200">1.200.000đ</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-zinc-800/30 transition-colors">
+              <td class="px-6 py-4 font-medium text-gray-800 dark:text-zinc-200">#ORD-9024</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-zinc-400">Phạm Minh D</td>
+              <td class="px-6 py-4"><span class="px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">Hoàn tất</span></td>
+              <td class="px-6 py-4 text-right font-bold text-gray-800 dark:text-zinc-200">670.000đ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-6">
+      <h2 class="font-bold text-gray-800 dark:text-white mb-6">Món ăn bán chạy</h2>
+      <div class="space-y-6">
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-zinc-800 overflow-hidden flex-shrink-0">
+            <img alt="Pho Bo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5US3WKq_Pdfuj3AovkG9lzRuRCTkpoM46-H2z8I6vFHQZTlsxukn2q91rZyW9LUVFCw5rX8dBW_3q-7MCwwKdw_S4T2X5EFzM6oRd6G9wb8q7Q1-ajCxCAmIWzm0efpm2CvRTp3ridN25G-hSLA-fah3GrBHSk9I0p147CUfkVjhA4bS7d586MUS5B99EcLqUMo49tnX3_WOCFhspb0MnzhnBhB3tz_ZgF35x-k9rxPJZR-hR-G5xkM75r4wj1YHLj_ZSaMQjuBaR" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold text-gray-800 dark:text-zinc-200 truncate">Phở Bò Đặc Biệt</p>
+            <p class="text-xs text-gray-500">85 lượt gọi hôm nay</p>
+          </div>
+          <div class="text-primary font-bold">#1</div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-zinc-800 overflow-hidden flex-shrink-0">
+            <img alt="Banh Mi" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcEi1tpaqtXCBa6IIINeJ9XBvKHJx8R62dgw5BvrjoL-qQ5XFGxQ6y5tSqMg0l7SOzPlH-vC_97D_y3IlZmka2M-NnwCLpclT-8tAOLUJ2qgtic3cksotCm8ULC1wYjWvlqxRRdMW8TE0GhhPtseCogKHwH4duLNHCFTYF_21Ul9mf6-fntOH5-UaupSRpnVyIcwNj3UtCUeAmPK2dw6iwlh2P55gB8tHRqqRg8LCyRuXEstTDxp8F3u7LHyIskb9jR5mMzWUhJJqF" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold text-gray-800 dark:text-zinc-200 truncate">Bánh Mì Thịt Nướng</p>
+            <p class="text-xs text-gray-500">64 lượt gọi hôm nay</p>
+          </div>
+          <div class="text-primary font-bold">#2</div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-zinc-800 overflow-hidden flex-shrink-0">
+            <img alt="Goi Cuon" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx78dbkZvqHLkWzDHUl9bz2x6vXNVcAPx_GV_NeIg-PbxdEyyjzKEvIcdqo3Of6nZZpFmPwdHpAXCddoV8411zGCT6oIr7AbLQUp3yRkpdYyx1d2Me0Z1FMKatFlGC9v4_NwjCkmDvKR75LcdJlMHn8rxuxqUBbigjUQJNcK21YuoDB10dnO1CQXMZOtfIffPx6UtIpJhtf6_hntf7852yz-Onca6BQDOc5EI77MRXZHPjKEIIHC8TK3cHA0h1TrKiTpKwdh9hcTN3" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold text-gray-800 dark:text-zinc-200 truncate">Gỏi Cuốn Tôm Thịt</p>
+            <p class="text-xs text-gray-500">52 lượt gọi hôm nay</p>
+          </div>
+          <div class="text-primary font-bold">#3</div>
+        </div>
+      </div>
+
+      <button class="w-full mt-8 py-3 bg-gray-50 dark:bg-zinc-800 text-gray-600 dark:text-zinc-300 font-bold rounded-xl hover:bg-gray-100 transition-colors" type="button">
+        Xem báo cáo chi tiết
+      </button>
+    </div>
+  </div>
+</div>

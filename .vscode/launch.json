@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Electron: Main",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "start"
+      ],
+      "env": {
+        "ELECTRON_ENABLE_LOGGING": "true",
+        "WDS_SOCKET_HOST": "127.0.0.1",
+        "WDS_SOCKET_PORT": "3000",
+        "WDS_SOCKET_PATH": "/ws"
+      },
+      "outputCapture": "std",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Electron: Renderer",
+      "type": "pwa-chrome",
+      "request": "attach",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}",
+      "timeout": 30000
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Electron: Main + Renderer",
+      "configurations": [
+        "Electron: Main",
+        "Electron: Renderer"
+      ],
+      "stopAll": true
+    }
+  ]
+}

@@ -1,0 +1,355 @@
+.inpo-page {
+  padding: 2rem;
+  color: #1f2937;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.inpo-page__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.inpo-page__title {
+  margin: 0;
+  font-size: 1.875rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.inpo-page__subtitle {
+  margin-top: 0.4rem;
+  color: #6b7280;
+}
+
+.inpo-page__actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.inpo-btn {
+  border: 1px solid #d1d5db;
+  border-radius: 0.65rem;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  background: #ffffff;
+  color: #374151;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.inpo-btn .material-symbols-outlined,
+.inpo-icon-btn .material-symbols-outlined,
+.inpo-row-action .material-symbols-outlined,
+.inpo-note-card .material-symbols-outlined,
+.inpo-pagination__nav .material-symbols-outlined {
+  font-size: 1.1rem;
+}
+
+.inpo-btn--primary {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #ffffff;
+}
+
+.inpo-btn:hover,
+.inpo-icon-btn:hover,
+.inpo-row-action:hover,
+.inpo-pagination__nav button:hover {
+  filter: brightness(0.98);
+}
+
+.inpo-filter,
+.inpo-table-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.9rem;
+}
+
+.inpo-table-card {
+  overflow: hidden;
+}
+
+.inpo-filter {
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.inpo-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.inpo-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.inpo-input-wrap {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inpo-select,
+.inpo-input,
+.inpo-copy-input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.6rem;
+  background: #f9fafb;
+  color: #374151;
+}
+
+.inpo-select,
+.inpo-input {
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  width: 100%;
+}
+
+.inpo-icon-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  color: #2563eb;
+  border-radius: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.inpo-table-scroll {
+  overflow: auto;
+  max-height: min(48vh, 21rem);
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e #dcfce7;
+}
+
+.inpo-table-scroll::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.inpo-table-scroll::-webkit-scrollbar-track {
+  background: #ecfdf3;
+  border-radius: 10px;
+}
+
+.inpo-table-scroll::-webkit-scrollbar-thumb {
+  background: #16a34a;
+  border-radius: 10px;
+  border: 1px solid #ecfdf3;
+}
+
+.inpo-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: #15803d;
+}
+
+.inpo-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.inpo-table thead {
+  background: #f9fafb;
+}
+
+.inpo-table th,
+.inpo-table td {
+  padding: 0.95rem 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.inpo-table th {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+.inpo-table__empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 1.25rem 0.75rem;
+}
+
+.inpo-table__checkbox-col {
+  width: 2.75rem;
+  text-align: center;
+}
+
+.inpo-table__center {
+  text-align: center;
+}
+
+.inpo-table__checkbox-col input[type='checkbox'],
+.inpo-table td.inpo-table__center > input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.35rem;
+  background: #ffffff;
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.inpo-table__checkbox-col input[type='checkbox']::before,
+.inpo-table td.inpo-table__center > input[type='checkbox']::before {
+  content: '';
+  width: 0.95rem;
+  height: 0.95rem;
+  transform: scale(0);
+  transition: transform 120ms ease-in-out;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4.5 10.6 8.3 14.2 15.6 6.8' fill='none' stroke='%23FFFFFF' stroke-width='3.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.inpo-table__checkbox-col input[type='checkbox']:checked,
+.inpo-table td.inpo-table__center > input[type='checkbox']:checked {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+.inpo-table__checkbox-col input[type='checkbox']:checked::before,
+.inpo-table td.inpo-table__center > input[type='checkbox']:checked::before {
+  transform: scale(1);
+}
+
+.inpo-table__checkbox-col input[type='checkbox']:focus-visible,
+.inpo-table td.inpo-table__center > input[type='checkbox']:focus-visible {
+  outline: 2px solid rgba(34, 197, 94, 0.35);
+  outline-offset: 2px;
+}
+
+.inpo-po-name {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.inpo-po-link {
+  border: none;
+  padding: 0;
+  background: transparent;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: underline;
+  text-decoration-color: rgba(15, 23, 42, 0.3);
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.inpo-po-link:hover {
+  color: #16a34a;
+  text-decoration-color: rgba(22, 163, 74, 0.55);
+}
+
+.inpo-po-link:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.inpo-po-meta {
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.inpo-copy-input {
+  width: 3.5rem;
+  text-align: center;
+  padding: 0.35rem 0.25rem;
+}
+
+.inpo-row-action {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.inpo-row-action:hover {
+  color: #22c55e;
+}
+
+.inpo-notes {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.inpo-note-card {
+  border: 1px dashed #d1d5db;
+  border-radius: 0.65rem;
+  padding: 0.85rem;
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+}
+
+.inpo-note-card .material-symbols-outlined {
+  color: #6b7280;
+}
+
+.inpo-note-card h3 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.inpo-note-card p {
+  margin: 0.2rem 0 0;
+  color: #6b7280;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 1024px) {
+  .inpo-filter {
+    grid-template-columns: 1fr;
+  }
+
+  .inpo-notes {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .inpo-page {
+    padding: 1rem;
+  }
+
+  .inpo-page__header {
+    flex-direction: column;
+  }
+
+  .inpo-page__actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .inpo-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>In PO Chi Tiết - Hệ thống quản lý</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#22C55E", // Vibrant green from the image
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#0F172A",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E293B",
+                        "text-main-light": "#1E293B",
+                        "text-main-dark": "#F1F5F9",
+                        "text-muted-light": "#64748B",
+                        "text-muted-dark": "#94A3B8",
+                        "brand-blue": "#0F172A",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                    },
+                },
+            },
+        };
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }.custom-checkbox:checked {
+            background-color: #22C55E;
+            border-color: #22C55E;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-text-main-light dark:text-text-main-dark transition-colors duration-200">
+<div class="max-w-7xl mx-auto px-6 py-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h1 class="text-3xl font-bold text-brand-blue dark:text-white mb-1">In PO</h1>
+<p class="text-text-muted-light dark:text-text-muted-dark">Quản lý và in ấn các đơn hàng thu mua của hệ thống</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleDarkMode()">
+<span class="material-icons-outlined text-gray-600 dark:text-gray-300">dark_mode</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all shadow-sm">
+<span class="material-icons-outlined text-lg">file_download</span>
+                    Xuất Excel
+                </button>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-primary text-white rounded-lg font-semibold hover:opacity-90 transition-all shadow-sm">
+<span class="material-icons-outlined text-lg">print</span>
+                    In hàng loạt
+                </button>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-6">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+<div class="md:col-span-7">
+<label class="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Cấu hình máy in</label>
+<div class="flex gap-2">
+<div class="relative flex-grow">
+<select class="w-full bg-gray-50 dark:bg-slate-800 border-gray-200 dark:border-gray-700 rounded-lg py-2.5 px-4 appearance-none focus:ring-primary focus:border-primary text-gray-500 dark:text-gray-400">
+<option>-- Chọn máy in khả dụng --</option>
+<option>HP LaserJet Pro M404n</option>
+<option>Canon LBP6230dn</option>
+</select>
+<span class="material-icons-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">expand_more</span>
+</div>
+<button class="p-2.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
+<span class="material-icons-outlined">refresh</span>
+</button>
+</div>
+</div>
+<div class="md:col-span-5">
+<label class="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Ngày đặt hàng</label>
+<div class="relative">
+<input class="w-full bg-gray-50 dark:bg-slate-800 border-gray-200 dark:border-gray-700 rounded-lg py-2.5 px-4 focus:ring-primary focus:border-primary" placeholder="mm/dd/yyyy" type="text"/>
+<span class="material-icons-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">calendar_today</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-gray-50 dark:bg-slate-800/50 border-b border-gray-200 dark:border-gray-700">
+<tr>
+<th class="px-6 py-4 w-12 text-center">
+<input class="rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary" type="checkbox"/>
+</th>
+<th class="px-4 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">STT</th>
+<th class="px-4 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tên đơn hàng (PO)</th>
+<th class="px-4 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-center">In 2 mặt</th>
+<th class="px-4 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-center">Số bản</th>
+<th class="px-4 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-center">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+<tr class="hover:bg-gray-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5 text-center">
+<input class="rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-sm font-medium text-gray-600 dark:text-gray-300">01</td>
+<td class="px-4 py-5">
+<div class="font-bold text-brand-blue dark:text-white">PO-20231024-001</div>
+<div class="text-xs text-text-muted-light dark:text-text-muted-dark mt-0.5">NCC Rau Củ Quả Đà Lạt - 24/10/2023</div>
+</td>
+<td class="px-4 py-5 text-center">
+<input checked="" class="custom-checkbox w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="w-16 mx-auto text-center py-1 bg-white dark:bg-slate-900 border-gray-200 dark:border-gray-700 rounded-md focus:ring-primary focus:border-primary" type="number" value="1"/>
+</td>
+<td class="px-4 py-5 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-icons-outlined">print</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5 text-center">
+<input class="rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-sm font-medium text-gray-600 dark:text-gray-300">02</td>
+<td class="px-4 py-5">
+<div class="font-bold text-brand-blue dark:text-white">PO-20231024-042</div>
+<div class="text-xs text-text-muted-light dark:text-text-muted-dark mt-0.5">Thực Phẩm Tươi Sống Miền Tây - 24/10/2023</div>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="w-16 mx-auto text-center py-1 bg-white dark:bg-slate-900 border-gray-200 dark:border-gray-700 rounded-md focus:ring-primary focus:border-primary" type="number" value="2"/>
+</td>
+<td class="px-4 py-5 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-icons-outlined">print</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5 text-center">
+<input class="rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-sm font-medium text-gray-600 dark:text-gray-300">03</td>
+<td class="px-4 py-5">
+<div class="font-bold text-brand-blue dark:text-white">PO-20231024-118</div>
+<div class="text-xs text-text-muted-light dark:text-text-muted-dark mt-0.5">Trái Cây Nhập Khẩu Vina - 24/10/2023</div>
+</td>
+<td class="px-4 py-5 text-center">
+<input checked="" class="custom-checkbox w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="w-16 mx-auto text-center py-1 bg-white dark:bg-slate-900 border-gray-200 dark:border-gray-700 rounded-md focus:ring-primary focus:border-primary" type="number" value="1"/>
+</td>
+<td class="px-4 py-5 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-icons-outlined">print</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
+<span class="text-sm text-text-muted-light dark:text-text-muted-dark">
+                    Hiển thị <span class="font-medium">3</span> trong tổng số <span class="font-medium">124</span> đơn hàng
+                </span>
+<nav class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-400">
+<span class="material-icons-outlined text-lg">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md bg-primary text-white font-medium">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-600 dark:text-gray-400 font-medium transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-600 dark:text-gray-400 font-medium transition-colors">3</button>
+<span class="px-1 text-gray-400">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-600 dark:text-gray-400 font-medium transition-colors">42</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-400">
+<span class="material-icons-outlined text-lg">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-60">
+<div class="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons-outlined text-gray-400">info</span>
+</div>
+<div>
+<div class="text-sm font-semibold">Hướng dẫn in</div>
+<div class="text-xs text-gray-400">Kiểm tra kết nối máy in trước khi thực hiện in hàng loạt.</div>
+</div>
+</div>
+<div class="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons-outlined text-gray-400">settings</span>
+</div>
+<div>
+<div class="text-sm font-semibold">Định dạng in</div>
+<div class="text-xs text-gray-400">Khổ giấy mặc định là A4, hướng dọc cho tất cả đơn hàng.</div>
+</div>
+</div>
+<div class="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons-outlined text-gray-400">history</span>
+</div>
+<div>
+<div class="text-sm font-semibold">Lịch sử in</div>
+<div class="text-xs text-gray-400">Xem lại các tác vụ in ấn gần đây nhất của hệ thống.</div>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

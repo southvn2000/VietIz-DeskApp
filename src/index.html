@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Đăng nhập - the Viet Fresh</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="wood-texture-overlay" aria-hidden="true"></div>
+      <div class="blur-circle blur-circle-top" aria-hidden="true"></div>
+      <div class="blur-circle blur-circle-bottom" aria-hidden="true"></div>
+
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <span class="theme-icon-light" aria-hidden="true">☾</span>
+        <span class="theme-icon-dark" aria-hidden="true">☀</span>
+      </button>
+
+      <main class="content-wrap">
+        <section class="card" id="login-view">
+          <div class="card-content">
+            <header class="brand">
+              <img
+                alt="the Viet Fresh Logo"
+                class="brand-logo"
+                id="brand-logo"
+                src=""
+              />
+              <p class="welcome-text">Chào mừng bạn quay trở lại</p>
+            </header>
+
+            <form action="#" class="login-form" id="login-form" method="POST">
+              <div class="field">
+                <label class="field-label" for="username">Số điện thoại</label>
+                <div class="input-wrap">
+                  <input id="username" name="username" placeholder="Nhập số điện thoại" required type="text" />
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="password-head">
+                  <label class="field-label" for="password">Mật khẩu</label>
+                  <a class="link-inline" href="#">Quên mật khẩu?</a>
+                </div>
+                <div class="input-wrap">
+                  <input id="password" name="password" placeholder="••••••••" required type="password" />
+                </div>
+              </div>
+
+              <label class="remember-wrap" for="remember">
+                <input id="remember" type="checkbox" />
+                <span>Ghi nhớ đăng nhập</span>
+              </label>
+
+              <button class="login-button" id="login-button" type="submit">
+                <span>Đăng nhập</span>
+              </button>
+
+              <button class="fake-login-button" id="fake-login-button" type="button">
+                Fake login (bypass)
+              </button>
+            </form>
+
+            <p class="auth-status" id="auth-status"></p>
+
+            <p class="signup-text">
+              Chưa có tài khoản?
+              <a class="link-inline strong" href="#">Đăng ký ngay</a>
+            </p>
+          </div>
+          <div class="card-accent"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
