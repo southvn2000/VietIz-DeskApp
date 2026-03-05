@@ -1,0 +1,146 @@
+.orders-download-progress {
+  margin-top: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 0.65rem 0.8rem;
+  background: var(--surface-solid);
+}
+
+.orders-download-progress__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: #dc2626;
+}
+
+.orders-download-progress__track {
+  position: relative;
+  margin-top: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--border) 85%, transparent);
+  overflow: hidden;
+}
+
+.orders-download-progress__fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+  transition: width 0.25s ease;
+}
+
+.orders-row-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.inpo-row-action {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.inpo-row-action:hover:not(:disabled) {
+  color: var(--primary);
+}
+
+.inpo-row-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.orders-downloaded-files {
+  display: grid;
+  gap: 0.3rem;
+  max-width: 24rem;
+  justify-items: stretch;
+}
+
+.orders-downloaded-summary {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.orders-downloaded-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.orders-downloaded-icon {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  flex: none;
+}
+
+.orders-downloaded-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 0.05rem 0;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.orders-downloaded-link:hover {
+  text-decoration: underline;
+}
+
+.orders-email-cell {
+  vertical-align: top;
+}
+
+.orders-email-list {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.orders-email-line,
+.orders-email-single {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inpo-table th:nth-child(5),
+.inpo-table td:nth-child(5) {
+  min-width: 10rem;
+  width: 12rem;
+  max-width: 12rem;
+}
+
+.inpo-table th:nth-child(6),
+.inpo-table td:nth-child(6) {
+  min-width: 20rem;
+  width: 24rem;
+}
+
+.orders-downloaded-empty {
+  color: var(--text-muted);
+}

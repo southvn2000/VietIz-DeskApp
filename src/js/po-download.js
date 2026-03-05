@@ -1,6 +1,13 @@
 const path = require('node:path');
 const fs = require('node:fs/promises');
 
+let activeDownloadController = null;
+
+const isAbortError = (error) =>
+  error?.name === 'AbortError' ||
+  error?.code === 'ABORT_ERR' ||
+  String(error?.message ?? '').toLowerCase().includes('aborted');
+
 const extractFileName = (response, fallbackName = 'DownloadedFile') => {
   const contentDisposition = response.headers.get('content-disposition') ?? '';
   const utf8Match = contentDisposition.match(/filename\*=UTF-8''([^;]+)/i);
@@ -39,6 +46,7 @@ const saveFileFromResponse = async (response, directory) => {
     return null;
   }
 
+  await fs.rm(fullPath, { force: true });
   await fs.writeFile(fullPath, fileBuffer);
   return fullPath;
 };
@@ -59,49 +67,94 @@ const downloadPOFiles = async ({
   poDownloadDirectory,
   token,
 }) => {
+  if (activeDownloadController) {
+    throw new Error('Download is already in progress.');
+  }
+
+  const downloadController = new AbortController();
+  activeDownloadController = downloadController;
+
   await fs.mkdir(poDownloadDirectory, { recursive: true });
 
   const files = [];
+  const uniqueFiles = new Set();
 
-  while (true) {
-    const headers = {
-      CustomHeader: 'thevietfresh.com',
+  try {
+    while (true) {
+      const headers = {
+        CustomHeader: 'thevietfresh.com',
+      };
+
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      const response = await fetch(buildApiUrl(readPOForPrintPath), {
+        method: 'GET',
+        headers,
+        signal: downloadController.signal,
+      });
+
+      if (response.status === 204) {
+        break;
+      }
+
+      if (!response.ok) {
+        const errorMessage = await getErrorMessage(response);
+        throw new Error(errorMessage || `Download failed with status ${response.status}`);
+      }
+
+      const savedFilePath = await saveFileFromResponse(response, poDownloadDirectory);
+      if (!savedFilePath) {
+        break;
+      }
+
+      files.push(savedFilePath);
+      uniqueFiles.add(savedFilePath);
+    }
+
+    const downloadedCount = uniqueFiles.size;
+
+    return {
+      success: true,
+      canceled: false,
+      message: downloadedCount > 0 ? 'Download completed.' : 'No file available to download.',
+      files,
+      downloadedCount,
+      directory: poDownloadDirectory,
     };
-
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
+  } catch (error) {
+    if (!isAbortError(error)) {
+      throw error;
     }
 
-    const response = await fetch(buildApiUrl(readPOForPrintPath), {
-      method: 'GET',
-      headers,
-    });
+    const downloadedCount = uniqueFiles.size;
 
-    if (response.status === 204) {
-      break;
+    return {
+      success: false,
+      canceled: true,
+      message: 'Download stopped by user.',
+      files,
+      downloadedCount,
+      directory: poDownloadDirectory,
+    };
+  } finally {
+    if (activeDownloadController === downloadController) {
+      activeDownloadController = null;
     }
+  }
+};
 
-    if (!response.ok) {
-      const errorMessage = await getErrorMessage(response);
-      throw new Error(errorMessage || `Download failed with status ${response.status}`);
-    }
-
-    const savedFilePath = await saveFileFromResponse(response, poDownloadDirectory);
-    if (!savedFilePath) {
-      break;
-    }
-
-    files.push(savedFilePath);
+const cancelDownloadPOFiles = () => {
+  if (!activeDownloadController) {
+    return { canceled: false, message: 'No active download.' };
   }
 
-  return {
-    success: true,
-    message: files.length > 0 ? 'Download completed.' : 'No file available to download.',
-    files,
-    directory: poDownloadDirectory,
-  };
+  activeDownloadController.abort();
+  return { canceled: true, message: 'Download cancellation requested.' };
 };
 
 module.exports = {
   downloadPOFiles,
+  cancelDownloadPOFiles,
 };

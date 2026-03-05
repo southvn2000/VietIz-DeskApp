@@ -5,9 +5,13 @@
       <p class="inpo-page__subtitle">Quản lý và in ấn các đơn hàng thu mua của hệ thống</p>
     </div>
     <div class="inpo-page__actions">
-      <button class="inpo-btn inpo-btn--secondary" type="button">
+      <button id="inpo-download-po" class="inpo-btn inpo-btn--secondary" type="button">
         <span class="material-symbols-outlined">file_download</span>
-        <span>Xuất Excel</span>
+        <span>Download PO</span>
+      </button>
+      <button id="inpo-stop-download" class="inpo-btn inpo-btn--secondary" type="button" hidden>
+        <span class="material-symbols-outlined">stop_circle</span>
+        <span>Dừng tải</span>
       </button>
       <button class="inpo-btn inpo-btn--primary" type="button">
         <span class="material-symbols-outlined">print</span>
@@ -15,6 +19,10 @@
       </button>
     </div>
   </header>
+
+  <section id="inpo-download-lock-status" class="inpo-lock-status" aria-live="polite" hidden>
+    Đang tải PO, màn hình đang tạm khóa. Vui lòng chờ hoặc bấm "Dừng tải".
+  </section>
 
   <section class="inpo-filter" aria-label="Bộ lọc In PO">
     <div class="inpo-field inpo-field--printer">
@@ -30,9 +38,26 @@
     </div>
 
     <div class="inpo-field inpo-field--date">
-      <label class="inpo-label" for="inpo-order-date">Ngày đặt hàng</label>
-      <input id="inpo-order-date" class="inpo-input" type="date" />
+      <label class="inpo-label" for="inpo-order-date">Ngày</label>
+      <div class="inpo-input-wrap">
+        <input id="inpo-order-date" class="inpo-input" type="text" placeholder="dd/mm/yyyy" readonly />
+        <button id="inpo-order-date-trigger" class="inpo-icon-btn" type="button" aria-label="Chọn ngày lọc">
+          <span class="material-symbols-outlined">calendar_month</span>
+        </button>
+        <input id="inpo-order-date-picker" class="inpo-native-date-helper" type="date" tabindex="-1" aria-hidden="true" />
+      </div>
     </div>
+  </section>
+
+  <section id="inpo-bulk-progress" class="inpo-progress" aria-label="Tiến độ in hàng loạt" hidden>
+    <div class="inpo-progress__top">
+      <strong id="inpo-bulk-progress-label">Tiến độ in hàng loạt</strong>
+      <span id="inpo-bulk-progress-count">0/0</span>
+    </div>
+    <div class="inpo-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="inpo-bulk-progress-label">
+      <div id="inpo-bulk-progress-bar" class="inpo-progress__bar" style="width: 0%"></div>
+    </div>
+    <p id="inpo-bulk-progress-status" class="inpo-progress__status">Sẵn sàng in</p>
   </section>
 
   <section class="inpo-table-card" aria-label="Danh sách đơn hàng PO">
@@ -42,58 +67,15 @@
           <tr>
             <th class="inpo-table__checkbox-col"><input id="inpo-select-all" type="checkbox" aria-label="Chọn tất cả" /></th>
             <th>STT</th>
-            <th>Tên File (PO)</th>
+            <th class="inpo-table__left">Tên File (PO)</th>
+            <th class="inpo-table__center">Ngày tạo</th>
             <th class="inpo-table__center">In 2 mặt</th>
             <th class="inpo-table__center">Số bản</th>
             <th class="inpo-table__center">Thao tác</th>
           </tr>
         </thead>
         <tbody id="inpo-po-tbody">
-          <tr>
-            <td class="inpo-table__checkbox-col"><input data-po-select type="checkbox" /></td>
-            <td>01</td>
-            <td>
-              <div class="inpo-po-name">PO-20231024-001</div>
-              <div class="inpo-po-meta">NCC Rau Củ Quả Đà Lạt - 24/10/2023</div>
-            </td>
-            <td class="inpo-table__center"><input type="checkbox" checked /></td>
-            <td class="inpo-table__center"><input class="inpo-copy-input" type="number" value="1" min="1" /></td>
-            <td class="inpo-table__center">
-              <button class="inpo-row-action" type="button" aria-label="In PO-20231024-001">
-                <span class="material-symbols-outlined">print</span>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="inpo-table__checkbox-col"><input data-po-select type="checkbox" /></td>
-            <td>02</td>
-            <td>
-              <div class="inpo-po-name">PO-20231024-042</div>
-              <div class="inpo-po-meta">Thực Phẩm Tươi Sống Miền Tây - 24/10/2023</div>
-            </td>
-            <td class="inpo-table__center"><input type="checkbox" /></td>
-            <td class="inpo-table__center"><input class="inpo-copy-input" type="number" value="2" min="1" /></td>
-            <td class="inpo-table__center">
-              <button class="inpo-row-action" type="button" aria-label="In PO-20231024-042">
-                <span class="material-symbols-outlined">print</span>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="inpo-table__checkbox-col"><input data-po-select type="checkbox" /></td>
-            <td>03</td>
-            <td>
-              <div class="inpo-po-name">PO-20231024-118</div>
-              <div class="inpo-po-meta">Trái Cây Nhập Khẩu Vina - 24/10/2023</div>
-            </td>
-            <td class="inpo-table__center"><input type="checkbox" checked /></td>
-            <td class="inpo-table__center"><input class="inpo-copy-input" type="number" value="1" min="1" /></td>
-            <td class="inpo-table__center">
-              <button class="inpo-row-action" type="button" aria-label="In PO-20231024-118">
-                <span class="material-symbols-outlined">print</span>
-              </button>
-            </td>
-          </tr>
+          
         </tbody>
       </table>
     </div>

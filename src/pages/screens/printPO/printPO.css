@@ -72,6 +72,61 @@
   border-radius: 0.9rem;
 }
 
+.inpo-progress {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.9rem;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.inpo-progress__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.55rem;
+  color: #374151;
+}
+
+.inpo-progress__track {
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: #ecfdf3;
+  border: 1px solid #d1fae5;
+  overflow: hidden;
+}
+
+.inpo-progress__bar {
+  height: 100%;
+  width: 0;
+  background: #22c55e;
+  transition: width 180ms ease;
+}
+
+.inpo-progress__status {
+  margin: 0.55rem 0 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.inpo-lock-status {
+  margin-bottom: 1rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #fde68a;
+  border-radius: 0.65rem;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.inpo-page.inpo-page--locked .inpo-filter,
+.inpo-page.inpo-page--locked .inpo-table-card,
+.inpo-page.inpo-page--locked .inpo-notes {
+  opacity: 0.85;
+}
+
 .inpo-table-card {
   overflow: hidden;
 }
@@ -99,6 +154,16 @@
 .inpo-input-wrap {
   display: flex;
   gap: 0.5rem;
+}
+
+.inpo-native-date-helper {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  border: 0;
+  padding: 0;
 }
 
 .inpo-select,
@@ -197,6 +262,10 @@
   text-align: center;
 }
 
+.inpo-table__left {
+  text-align: left;
+}
+
 .inpo-table__checkbox-col input[type='checkbox'],
 .inpo-table td.inpo-table__center > input[type='checkbox'] {
   appearance: none;
@@ -290,6 +359,13 @@
 
 .inpo-row-action:hover {
   color: #22c55e;
+}
+
+.orders-row-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
 }
 
 .inpo-notes {

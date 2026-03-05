@@ -1,0 +1,139 @@
+.order-files-page {
+  max-height: calc(100vh - 9rem);
+  overflow-y: auto;
+  padding-right: 0.35rem;
+}
+
+.order-files-name-btn {
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  padding: 0;
+  max-width: 26rem;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-files-related-list {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.order-files-related-btn {
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  padding: 0;
+  width: fit-content;
+  max-width: 24rem;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-files-related-empty {
+  color: var(--text-muted);
+}
+
+.order-files-row-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.order-files-action-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.order-files-action-btn:hover:not(:disabled) {
+  color: var(--primary);
+}
+
+.order-files-action-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.order-detail-table__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0.2rem 0.95rem;
+}
+
+.order-detail-section {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.order-meta-form {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.order-meta-form__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.order-meta-form__notes {
+  margin-top: 0.8rem;
+}
+
+.order-meta-form__textarea {
+  resize: vertical;
+  min-height: 7.5rem;
+}
+
+.order-detail-table__title {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-title);
+  padding: 0.25rem 0.2rem;
+}
+
+.order-detail-table__muted {
+  color: var(--text-muted);
+}
+
+.order-detail-table__total-label {
+  text-align: right;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.order-detail-table__total-value {
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.order-detail-table__actions {
+  margin-top: 1rem;
+  padding: 0.35rem 0.2rem 0.1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.order-detail-table__save-btn {
+  padding: 0.62rem 1.15rem;
+}
+
+@media (max-width: 1024px) {
+  .order-meta-form__grid {
+    grid-template-columns: 1fr;
+  }
+}

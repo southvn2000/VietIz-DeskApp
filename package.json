@@ -36,6 +36,11 @@
   },
   "dependencies": {
     "@fontsource/material-symbols-outlined": "^5.2.36",
-    "electron-squirrel-startup": "^1.0.1"
+    "@napi-rs/canvas": "^0.1.95",
+    "axios": "^1.13.6",
+    "electron-squirrel-startup": "^1.0.1",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^5.5.207",
+    "tesseract.js": "^7.0.0"
   }
 }

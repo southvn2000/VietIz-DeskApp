@@ -2,8 +2,89 @@ const path = require('node:path');
 const fs = require('node:fs/promises');
 const { execFile } = require('node:child_process');
 const { promisify } = require('node:util');
+const { pathToFileURL } = require('node:url');
+const { BrowserWindow } = require('electron');
 
 const execFileAsync = promisify(execFile);
+
+const parsePdfDateToMs = (rawValue) => {
+  const value = String(rawValue ?? '').trim();
+  if (!value) {
+    return null;
+  }
+
+  const normalized = value.startsWith('D:') ? value.slice(2) : value;
+  const dateMatch = normalized.match(
+    /^(\d{4})(\d{2})?(\d{2})?(\d{2})?(\d{2})?(\d{2})?([Zz]|[+\-]\d{2}'?\d{2}'?)?$/,
+  );
+
+  if (!dateMatch) {
+    return null;
+  }
+
+  const year = Number.parseInt(dateMatch[1], 10);
+  const month = Number.parseInt(dateMatch[2] ?? '01', 10);
+  const day = Number.parseInt(dateMatch[3] ?? '01', 10);
+  const hour = Number.parseInt(dateMatch[4] ?? '00', 10);
+  const minute = Number.parseInt(dateMatch[5] ?? '00', 10);
+  const second = Number.parseInt(dateMatch[6] ?? '00', 10);
+
+  if (
+    !Number.isFinite(year) ||
+    !Number.isFinite(month) ||
+    !Number.isFinite(day) ||
+    !Number.isFinite(hour) ||
+    !Number.isFinite(minute) ||
+    !Number.isFinite(second)
+  ) {
+    return null;
+  }
+
+  const offsetRaw = dateMatch[7] ?? 'Z';
+  const utcMs = Date.UTC(year, Math.max(0, month - 1), day, hour, minute, second);
+
+  if (offsetRaw.toUpperCase() === 'Z') {
+    return utcMs;
+  }
+
+  const compactOffset = offsetRaw.replace(/'/g, '');
+  const sign = compactOffset.startsWith('-') ? -1 : 1;
+  const offsetHour = Number.parseInt(compactOffset.slice(1, 3), 10);
+  const offsetMinute = Number.parseInt(compactOffset.slice(3, 5), 10);
+
+  if (!Number.isFinite(offsetHour) || !Number.isFinite(offsetMinute)) {
+    return utcMs;
+  }
+
+  const offsetMs = sign * ((offsetHour * 60 + offsetMinute) * 60 * 1000);
+  return utcMs - offsetMs;
+};
+
+const extractPdfCreationDateMs = async (filePath) => {
+  try {
+    const buffer = await fs.readFile(filePath);
+    const text = buffer.toString('latin1');
+    const creationDateMatch = text.match(/\/CreationDate\s*\(([^)]+)\)/i);
+
+    if (!creationDateMatch?.[1]) {
+      return null;
+    }
+
+    return parsePdfDateToMs(creationDateMatch[1]);
+  } catch {
+    return null;
+  }
+};
+
+const extractCreatedDateFromFileMs = async (filePath) => {
+  const extension = path.extname(filePath).toLowerCase();
+
+  if (extension === '.pdf') {
+    return extractPdfCreationDateMs(filePath);
+  }
+
+  return null;
+};
 
 const normalizePrinterList = (printerData) => {
   if (!printerData) {
@@ -77,11 +158,38 @@ const listFilesInDirectory = async (directoryPath) => {
   await fs.mkdir(directoryPath, { recursive: true });
 
   const entries = await fs.readdir(directoryPath, { withFileTypes: true });
+  const fileEntries = entries.filter((entry) => entry.isFile());
 
-  return entries
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
-    .sort((left, right) => left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' }));
+  const resolveCreatedAtMs = (stats) => {
+    const candidates = [stats?.birthtimeMs, stats?.ctimeMs, stats?.mtimeMs].filter(
+      (value) => Number.isFinite(value) && value > 0,
+    );
+
+    if (candidates.length === 0) {
+      return null;
+    }
+
+    return candidates[0];
+  };
+
+  const filesWithMetadata = await Promise.all(
+    fileEntries.map(async (entry) => {
+      const fullPath = path.join(directoryPath, entry.name);
+      const stats = await fs.stat(fullPath);
+      const fileCreatedAtMs = await extractCreatedDateFromFileMs(fullPath);
+      const createdAtMs = fileCreatedAtMs ?? resolveCreatedAtMs(stats);
+
+      return {
+        name: entry.name,
+        createdAt: createdAtMs ? new Date(createdAtMs).toISOString() : null,
+        createdAtMs,
+      };
+    }),
+  );
+
+  return filesWithMetadata.sort((left, right) =>
+    left.name.localeCompare(right.name, undefined, { numeric: true, sensitivity: 'base' }),
+  );
 };
 
 const escapePowerShellSingleQuoted = (value) => value.replace(/'/g, "''");
@@ -99,6 +207,73 @@ const printFile = async (filePath, printerName) => {
     : `Start-Process -FilePath '${escapedFilePath}' -Verb Print -WindowStyle Hidden -Wait`;
 
   await execFileAsync('powershell.exe', ['-NoProfile', '-Command', command]);
+};
+
+const printFileWithOptions = async ({
+  filePath,
+  printerName,
+  copies = 1,
+  duplex = true,
+}) => {
+  if (!filePath || typeof filePath !== 'string') {
+    throw new Error('filePath is required.');
+  }
+
+  await fs.access(filePath);
+
+  const printWindow = new BrowserWindow({
+    show: false,
+    autoHideMenuBar: true,
+    backgroundColor: '#ffffff',
+    webPreferences: {
+      plugins: true,
+    },
+  });
+
+  const fileUrl = pathToFileURL(filePath).toString();
+
+  try {
+    await printWindow.loadURL(fileUrl);
+
+    const isPdfFile = path.extname(filePath).toLowerCase() === '.pdf';
+    if (isPdfFile) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 450);
+      });
+    }
+
+    await new Promise((resolve, reject) => {
+      printWindow.webContents.print(
+        {
+          silent: true,
+          printBackground: true,
+          deviceName: typeof printerName === 'string' ? printerName.trim() : '',
+          copies: Math.max(1, Number.parseInt(copies, 10) || 1),
+          duplexMode: duplex ? 'longEdge' : 'simplex',
+        },
+        (success, failureReason) => {
+          if (!success) {
+            reject(new Error(failureReason || 'Print failed.'));
+            return;
+          }
+
+          resolve();
+        },
+      );
+    });
+
+    return {
+      success: true,
+      filePath,
+      printerName: typeof printerName === 'string' ? printerName.trim() : '',
+      copies: Math.max(1, Number.parseInt(copies, 10) || 1),
+      duplex: Boolean(duplex),
+    };
+  } finally {
+    if (!printWindow.isDestroyed()) {
+      printWindow.close();
+    }
+  }
 };
 
 const getUniqueDestinationPath = async (targetDirectory, fileName) => {
@@ -206,4 +381,5 @@ module.exports = {
   listAvailableNetworkPrinters,
   listFilesInDirectory,
   printFilesFromDirectory,
+  printFileWithOptions,
 };

@@ -1,6 +1,72 @@
-<div class="p-8">
-  <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-6">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Đơn hàng</h2>
-    <p class="text-gray-600 dark:text-zinc-400">Trang tạm thời cho màn hình Đơn hàng. Nội dung chi tiết sẽ được cập nhật sau.</p>
-  </div>
-</div>
+<section class="inpo-page" aria-label="Màn hình Đơn hàng">
+  <header class="inpo-page__header">
+    <div>
+      <h1 class="inpo-page__title">Đơn hàng</h1>
+      <p class="inpo-page__subtitle">Danh sách khách hàng có cấu hình trong hệ thống</p>
+    </div>
+    <div class="inpo-page__actions">
+      <button id="orders-refresh-data" class="inpo-btn inpo-btn--secondary" type="button">
+        <span class="material-symbols-outlined">refresh</span>
+        <span>Làm mới dữ liệu</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="inpo-filter" aria-label="Bộ lọc đơn hàng">
+    <div class="inpo-field inpo-field--printer">
+      <label class="inpo-label" for="orders-type-filter">Loại file</label>
+      <div class="inpo-input-wrap">
+        <select id="orders-type-filter" class="inpo-select"></select>
+      </div>
+    </div>
+
+    <div class="inpo-field">
+      <label class="inpo-label" for="orders-number-of-days">Số ngày lấy file</label>
+      <div class="inpo-input-wrap">
+        <input
+          id="orders-number-of-days"
+          class="inpo-input"
+          type="number"
+          min="0"
+          step="1"
+          value="2"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="orders-download-progress"
+    class="orders-download-progress hidden"
+    aria-label="Tiến trình tải file đơn hàng"
+    aria-live="polite"
+    aria-hidden="true"
+  >
+    <div class="orders-download-progress__meta">
+      <span id="orders-download-progress-label">Đang tải file đính kèm...</span>
+      <span id="orders-download-progress-percent">0%</span>
+    </div>
+    <div class="orders-download-progress__track" aria-hidden="true">
+      <div id="orders-download-progress-fill" class="orders-download-progress__fill"></div>
+    </div>
+  </section>
+
+  <section class="inpo-table-card" aria-label="Danh sách khách hàng">
+    <div class="inpo-table-scroll">
+      <table class="inpo-table">
+        <thead>
+          <tr>
+            <th>STT</th>           
+            <th class="inpo-table__left">Tên khách hàng</th> 
+            <th class="inpo-table__left">Loại khách hàng</th>  
+            <th class="inpo-table__left">Loại file</th>         
+            <th class="inpo-table__left">Email</th>    
+            <th class="inpo-table__left">Downloaded</th>        
+            <th>Chức năng</th>
+          </tr>
+        </thead>
+        <tbody id="orders-customers-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+</section>

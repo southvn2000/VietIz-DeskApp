@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PurchaseOrder",
+  "type": "object",
+  "required": ["purchase_order", "items", "financial_summary"],
+  "properties": {
+    "purchase_order": {
+      "type": "object",
+      "required": ["po_number", "order_date"],
+      "properties": {
+        "po_number": {
+          "type": "string",
+          "description": "Unique purchase order number"
+        },
+        "order_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when the purchase order was created"
+        },
+        "delivery_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Expected delivery date"
+        }
+      }
+    },
+
+    "items": {
+      "type": "array",
+      "description": "List of ordered items",
+      "items": {
+        "type": "object",
+        "required": ["line_number", "description", "quantity", "unit_price"],
+        "properties": {
+          "line_number": {
+            "type": "integer",
+            "description": "Line number of the item"
+          },
+          "description": {
+            "type": "string",
+            "description": "Product description"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Measurement unit (kg, pcs, box, etc.)"
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Ordered quantity"
+          },
+          "unit_price": {
+            "type": "number",
+            "description": "Price per unit"
+          },
+          "total_price": {
+            "type": "number",
+            "description": "Total price for this item"
+          },
+          "note": {
+            "type": "string",
+            "description": "Additional note for the item"
+          }
+        }
+      }
+    },
+
+    "financial_summary": {
+      "type": "object",
+      "required": ["currency", "sub_total", "total_amount"],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "description": "Currency code"
+        },
+        "sub_total": {
+          "type": "number",
+          "description": "Subtotal before tax"
+        },
+        "vat_percent": {
+          "type": "number",
+          "description": "VAT percentage"
+        },
+        "vat_amount": {
+          "type": "number",
+          "description": "VAT amount"
+        },
+        "total_amount": {
+          "type": "number",
+          "description": "Total amount payable"
+        }
+      }
+    },
+
+    "delivery_note": {
+      "type": "string",
+      "description": "Additional delivery instructions"
+    }
+  }
+}

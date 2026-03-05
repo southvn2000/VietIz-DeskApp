@@ -1,0 +1,104 @@
+<section class="inpo-page order-files-page" aria-label="Màn hình tạo đơn hàng từ file">
+  <header class="inpo-page__header">
+    <div>
+      <h1 id="order-files-title" class="inpo-page__title">Tạo đơn hàng từ file</h1>
+      <p class="inpo-page__subtitle">Danh sách file upload/download trong ngày của khách hàng đã chọn</p>
+    </div>
+    <div class="inpo-page__actions">
+      <button id="order-files-back" class="inpo-btn inpo-btn--secondary" type="button">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span>Quay lại Đơn hàng</span>
+      </button>
+    </div>
+  </header>
+
+  <section
+    id="order-files-progress"
+    class="orders-download-progress hidden"
+    aria-label="Tiến trình tải danh sách file"
+    aria-live="polite"
+    aria-hidden="true"
+  >
+    <div class="orders-download-progress__meta">
+      <span id="order-files-progress-label">Đang tải danh sách file...</span>
+      <span id="order-files-progress-percent">0%</span>
+    </div>
+    <div class="orders-download-progress__track" aria-hidden="true">
+      <div id="order-files-progress-fill" class="orders-download-progress__fill"></div>
+    </div>
+  </section>
+
+  <section class="inpo-table-card" aria-label="Danh sách file trong ngày">
+    <div class="inpo-table-scroll">
+      <table class="inpo-table">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th class="inpo-table__left">Tên file</th>
+            <th class="inpo-table__left">Text or Image file</th>
+            <th>Chức năng</th>
+          </tr>
+        </thead>
+        <tbody id="order-files-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="inpo-table-card order-meta-form" aria-label="Thông tin đơn hàng">
+    <div class="order-meta-form__grid">
+      <div class="inpo-field">
+        <label class="inpo-label" for="order-meta-customer">Khách hàng</label>
+        <div class="inpo-input-wrap">
+          <input id="order-meta-customer" class="inpo-input" type="text" placeholder="Nhập tên khách hàng" />
+        </div>
+      </div>
+      <div class="inpo-field">
+        <label class="inpo-label" for="order-meta-delivery-date">Ngày giao dự tính</label>
+        <div class="inpo-input-wrap">
+          <input id="order-meta-delivery-date" class="inpo-input" type="text" placeholder="dd/mm/yyyy hh:mm:ss" />
+        </div>
+      </div>
+      <div class="inpo-field">
+        <label class="inpo-label" for="order-meta-po-number">Số PO</label>
+        <div class="inpo-input-wrap">
+          <input id="order-meta-po-number" class="inpo-input" type="text" placeholder="PO-xxxx" />
+        </div>
+      </div>
+    </div>
+
+    <div class="inpo-field order-meta-form__notes">
+      <label class="inpo-label" for="order-meta-notes">Ghi chú</label>
+      <div class="inpo-input-wrap">
+        <textarea id="order-meta-notes" class="inpo-input order-meta-form__textarea" rows="6" placeholder="Nhập ghi chú đơn hàng..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="inpo-table-card order-detail-section" aria-label="Chi tiết đơn hàng">
+    <header class="order-detail-table__header">
+      <h2 class="order-detail-table__title">Chi tiết đơn hàng</h2>
+    </header>
+    <div class="inpo-table-scroll">
+      <table class="inpo-table order-detail-table">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th class="inpo-table__left">CHI TIẾT SẢN PHẨM</th>
+            <th class="inpo-table__left">SKU</th>
+            <th class="inpo-table__left">ĐƠN VỊ ĐO</th>
+            <th class="inpo-table__left">SỐ LƯỢNG</th>
+            <th class="inpo-table__left">GIÁ</th>
+            <th class="inpo-table__left">TỔNG CỘNG</th>
+          </tr>
+        </thead>
+        <tbody id="order-detail-tbody"></tbody>
+      </table>
+    </div>
+    <div class="order-detail-table__actions">
+      <button type="button" class="inpo-btn inpo-btn--primary order-detail-table__save-btn">
+        <span class="material-symbols-outlined">save</span>
+        <span>Lưu đơn hàng</span>
+      </button>
+    </div>
+  </section>
+</section>
